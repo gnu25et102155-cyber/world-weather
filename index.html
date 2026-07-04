@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Responsive viewport for mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🌤️ Weather App</h1>
+        <div class="search-box">
+            <input type="text" id="cityInput" placeholder="Enter city, village, or country name...">
+            <button onclick="getWeather()">Search</button>
+        </div>
+        <div class="weather-info" id="weatherInfo">
+            <div class="location" id="location"></div>
+            <div class="temp" id="temp"></div>
+            <div class="description" id="description"></div>
+            <div class="details">
+                <div class="detail-item">
+                    <span>💧 Humidity</span>
+                    <strong id="humidity"></strong>
+                </div>
+                <div class="detail-item">
+                    <span>💨 Wind</span>
+                    <strong id="wind"></strong>
+                </div>
+            </div>
+        </div>
+        <div class="error" id="error"></div>
+    </div>
+
+    <script>
+        const API_KEY = "91e828401c93afe11fefff459b786295";
+
+        async function getWeather() {
+            const city = document.getElementById("cityInput").value;
+            const weatherInfo = document.getElementById("weatherInfo");
+            const error = document.getElementById("error");
+
+            if (!city) {
+                error.textContent = "Please enter a city, village, or country name";
+                error.classList.add("show");
+                weatherInfo.classList.remove("show");
+                return;
+            }
+
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (response.ok) {
+                    document.getElementById("location").textContent = `${data.name}, ${data.sys.country}`;
+                    document.getElementById("temp").textContent = `${Math.round(data.main.temp)}°C`;
+                    document.getElementById("description").textContent = data.weather[0].description;
+                    document.getElementById("humidity").textContent = `${data.main.humidity}%`;
+                    document.getElementById("wind").textContent = `${data.wind.speed} m/s`;
+
+                    weatherInfo.classList.add("show");
+                    error.classList.remove("show");
+                } else {
+                    error.textContent = data.message || "City not found";
+                    error.classList.add("show");
+                    weatherInfo.classList.remove("show");
+                }
+            } catch (err) {
+                error.textContent = "Error fetching weather data";
+                error.classList.add("show");
+                weatherInfo.classList.remove("show");
+            }
+        }
+
+        // Allow pressing Enter to search
+        document.getElementById("cityInput").addEventListener("keypress", function(e) {
+            if (e.key === "Enter") {
+                getWeather();
+            }
+        });
+    </script>
+</body>
+</html>
+http://<your-computer-ip>:8000

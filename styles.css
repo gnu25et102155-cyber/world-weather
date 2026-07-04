@@ -1,0 +1,197 @@
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    background: url("https://www.weathercompany.com/wp-content/uploads/2024/01/hero-hurricane-storm-weather-shutterstock_1603937461.jpg") no-repeat center center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Main Container */
+.container {
+    background: rgba(23, 22, 22, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Heading */
+h1 {
+    color: #181717;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+}
+
+/* Search Box */
+.search-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+input {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+input::placeholder {
+    color: #666;
+}
+
+button {
+    padding: 15px 25px;
+    border: none;
+    border-radius: 10px;
+    background:blue;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background: #ff6b6b;
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+/* Weather Info */
+.weather-info {
+    display: none;
+    color: #fff;
+}
+
+.weather-info.show {
+    display: block;
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.location {
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.temp {
+    font-size: 4rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+.description {
+    text-align: center;
+    font-size: 1.2rem;
+    text-transform: capitalize;
+    margin-bottom: 20px;
+}
+
+/* Weather Details */
+.details {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.detail-item {
+    text-align: center;
+}
+
+.detail-item span {
+    display: block;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.detail-item strong {
+    font-size: 1.2rem;
+}
+
+/* Error Message */
+.error {
+    color: #ff6b6b;
+    text-align: center;
+    margin-top: 20px;
+    display: none;
+}
+
+.error.show {
+    display: block;
+    animation: shake 0.5s ease-in;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .container {
+        padding: 15px;
+        max-width: 98vw;
+        border-radius: 12px;
+    }
+    h1 {
+        font-size: 1.2rem;
+        margin-bottom: 18px;
+    }
+    .temp {
+        font-size: 2.2rem;
+    }
+    .location {
+        font-size: 1.1rem;
+    }
+    .search-box {
+        flex-direction: column;
+        gap: 8px;
+    }
+    input, button {
+        font-size: 15px;
+        padding: 12px;
+    }
+    button {
+        width: 100%;
+    }
+    .details {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 18px;
+        padding-top: 10px;
+    }
+}
